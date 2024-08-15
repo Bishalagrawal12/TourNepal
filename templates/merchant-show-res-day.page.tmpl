@@ -1,0 +1,149 @@
+{{template "merchant" .}}
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<link rel="stylesheet" href="/static/css/tabStyles.css" />
+
+{{define "content"}}
+
+{{$user := index .Data "user_details"}}
+{{$tab := index .Data "tab"}}
+
+{{$month := index .Data "month"}}
+{{$year := index .Data "year"}}
+{{$day := index .Data "day"}}
+
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "bus"}} active {{end}}"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/show-reservations-per-day?month={{$month}}&day={{$day}}&year={{$year}}&tab=bus"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      onclick="openCity(event, 'bus_reservation')"
+      >Bus Reservations</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "hotel"}} active {{end}}"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/show-reservations-per-day?month={{$month}}&day={{$day}}&year={{$year}}&tab=hotel"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      onclick="openCity(event, 'hotel_reservation')"
+      >Hotel Reservations</a
+    >
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "recreation"}} active {{end}}"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/show-reservations-per-day?month={{$month}}&day={{$day}}&year={{$year}}&tab=recreation"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      onclick="openCity(event, 'activity_reservation')"
+      >Recreational Activity Reservations</a
+    >
+  </li>
+</ul>
+
+<div class="container">
+  <div class="row">
+    <div class="title">
+      <h4>Showing Reservations: </h4>
+    </div>
+  </div>
+    {{if eq $tab "bus"}}
+    {{$res := index .Data "bus_reservations"}}
+    {{range $res}}
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="title">
+          <div class="float-start text-primary">
+            <a href="/merchant/1/merchant-show-reservations/{{.ReservationID}}">{{.FirstName}} {{.LastName}}</a>
+          </div>
+          <div class="float-end text-primary">
+          {{.From}} to {{.Stop}}
+          </div>
+        </div>
+        <br>
+        <div class="title">
+          <strong>Phone Number: </strong> {{.PhoneNumber}} <br>
+          <strong>Email Address: </strong> {{.Email}} <br>
+          <strong>Reservaiton Date: </strong> {{humanDate .ReservationDate}}  <br>
+          <strong>Number of People : </strong> {{.NumPassengers}}
+        </div>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+    {{if eq $tab "hotel"}}
+    {{$res := index .Data "hotel_reservations"}}
+    {{range $res}}
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="title">
+          <div class="float-sm-left text-primary">
+            <a href="/merchant/1/merchant-show-reservations/{{.ReservationID}}/hotel">{{.FirstName}} {{.LastName}}</a>
+          </div>
+          <div class="float-sm-right text-primary">
+          {{.Room.HotelName}}
+          </div>
+        </div>
+        <br>
+        <div class="title">
+          <strong>Phone Number: </strong> {{.PhoneNumber}} <br>
+          <strong>Email Address: </strong> {{.Email}} <br>
+          <strong>Reservation From: </strong> {{humanDate .ResDateStart}}  <br>
+          <strong>Reservation To: </strong> {{humanDate .ResDateEnd}}  <br>
+          <strong>Number of People: </strong> {{.NumPeople}}
+        </div>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+    {{if eq $tab "recreation"}}
+    {{$res := index .Data "activity_reservations"}}
+    {{range $res}}
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="title">
+          <div class="float-start text-primary">
+            <a href="/merchant/1/merchant-show-reservations/{{.ReservationID}}/activity">{{.FirstName}} {{.LastName}}</a>
+          </div>
+          <div class="float-end text-primary">
+          {{.Activity.ActivityName}}
+          </div>
+        </div>
+        <br>
+        <div class="title">
+          <strong>Phone Number: </strong> {{.PhoneNumber}} <br>
+          <strong>Email Address: </strong> {{.Email}} <br>
+          <strong>Reservation On: </strong> {{humanDate .ResDate}}  <br>
+          <strong>Number of People: </strong> {{.NumPeople}}
+        </div>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+  </div>
+</div>
+{{ end }}

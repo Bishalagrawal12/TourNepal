@@ -1,0 +1,11 @@
+create_table("activity_reservations") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("first_name", "string", {})
+  t.Column("last_name", "string", {})
+  t.Column("activity_id", "integer", {})
+  t.Column("reservation_date", "date", {})
+  t.Column("num_people", "integer", {})
+  t.Column("phone_number", "string", {"default": ""})
+  t.Column("email", "string", {})
+  t.Column("processed", "integer", {})
+}

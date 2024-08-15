@@ -1,0 +1,13 @@
+create_table("bus_reservations") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("first_name", "string", {})
+  t.Column("last_name", "string", {})
+  t.Column("bus_id", "integer", {})
+  t.Column("reservation_date", "date", {})
+  t.Column("num_passangers", "integer", {})
+  t.Column("start", "string", {})
+  t.Column("stop", "string", {})
+  t.Column("phone_number", "string", {"default": ""})
+  t.Column("email", "string", {})
+  t.Column("processed", "integer", {})
+}

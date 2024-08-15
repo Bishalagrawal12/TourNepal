@@ -1,0 +1,1 @@
+drop_foreign_key("hotel_room", "hotel_room_merchants_id_fk", {})

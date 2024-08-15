@@ -1,0 +1,6 @@
+create_table("merchant_address") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("city", "string", {"default": ""})
+  t.Column("state", "string", {"default": ""})
+  t.Column("country", "string", {"default": ""})
+}

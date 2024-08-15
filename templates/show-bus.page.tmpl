@@ -1,0 +1,176 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+{{$user := index .Data "user_details"}}
+{{$bus := index .Data "bus_reg"}}
+<div class="title">
+  <h4>Save Changes To your Bus:</h4>
+</div>
+<div class="col-md-12 mt-3">
+  <form action="/merchant/{{ $user.ID }}/add-bus/{{$bus.BusID}}" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="bus_name">Name of the Bus:</label></strong>
+        {{with .Form.Errors.Get "bus_name"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_name"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_name"}} is-invalid {{ end }}"
+          id="bus_name"
+          name="bus_name"
+          placeholder="Bus Name"
+          value="{{$bus.BusName}}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="bus_model">Bus Model:</label></strong>
+        {{with .Form.Errors.Get "bus_model"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_model"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_model"}} is-invalid {{ end }}"
+          id="bus_model"
+          name="bus_model"
+          placeholder="Bus Model"
+          value="{{$bus.BusModel}}"
+        />
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <strong><label for="office_address">Office Address</label></strong>
+      {{with .Form.Errors.Get "office_address"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="text"
+        class="form-control form-control-lg {{with .Form.Errors.Get "office_address"}} is-invalid {{ end }}"
+        id="office_address"
+        name="office_address"
+        placeholder="Office Address"
+        value="{{$bus.BusAddress}}"
+      />
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="bus_start">Bus Starts At:</label></strong>
+        {{with .Form.Errors.Get "bus_start"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_start"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_start"}} is-invalid {{ end }}"
+          id="bus_start"
+          name="bus_start"
+          placeholder="Bus Starts At"
+          value="{{$bus.BusStart}}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="bus_end">Bus Ends At:</label></strong>
+        {{with .Form.Errors.Get "bus_end"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_end"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_end"}} is-invalid {{ end }}"
+          id="bus_end"
+          name="bus_end"
+          placeholder="Bus Ends At:"
+          value="{{$bus.BusEnd}}"
+        />
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-md-4">
+        <strong><label for="bus_seats">Number of Seats:</label></strong>
+        {{with .Form.Errors.Get "bus_seats"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_seats"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_seats"}} is-invalid {{ end }}"
+          id="bus_seats"
+          name="bus_seats"
+          placeholder="Number of Seats"
+          value="{{$bus.BusNumSeats}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="bus_no_plate">Bus Number Plate:</label></strong>
+        {{with .Form.Errors.Get "bus_no_plate"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_no_plate"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_no_plate"}} is-invalid {{ end }}"
+          id="bus_no_plate"
+          name="bus_no_plate"
+          placeholder="Bus Number Plate:"
+          value="{{$bus.BusNumPlate}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="bus_pan">PAN number:</label></strong>
+        {{with .Form.Errors.Get "bus_pan"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="bus_pan"
+          class="form-control form-control-lg {{with .Form.Errors.Get "bus_pan"}} is-invalid {{ end }}"
+          id="bus_pan"
+          name="bus_pan"
+          placeholder="Office PAN"
+          value="{{$bus.BusPAN}}"
+        />
+      </div>
+      </div>
+     <div class="form-group mt-3">
+      <strong><label for="price">Price of Ticket</label></strong>
+      {{with .Form.Errors.Get "price"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="text"
+        class="form-control form-control-lg {{with .Form.Errors.Get "price"}} is-invalid {{ end }}"
+        id="price"
+        name="price"
+        placeholder="Price of Ticket"
+        value="{{$bus.Price}}"
+      />
+    </div>
+    </div>
+   <div class="container">
+        <div class="float-sm-left">
+            <div class="form-group mt-2">
+                <input type="submit" class="btn btn-success btn-lg" value="Save"></input>
+                <a href="#!" onclick="window.history.go(-1)" class="btn btn-warning btn-lg">Cancel</a>
+            </div>
+        </div>
+        <div class="float-sm-right">
+            <div class="form-group mt-2">
+                <a href="#!" onclick="deleteRes({{$user.ID}}, {{$bus.BusID}})" class="btn btn-danger btn-lg">Delete Bus</a>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+{{ end }}
+
+{{define "js"}}
+<script>
+    const deleteRes = (userID, id) => {
+    attention.custom({
+      icon: "warning",
+      msg: "Are you Sure?",
+      callback: (result) => {
+        if (result !== false) {
+          window.location.href = "/merchant/" + userID + "/add-bus/delete/" + id;
+        }
+      },
+    });
+  };
+</script>
+{{end}}

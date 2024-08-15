@@ -1,0 +1,532 @@
+{{template "base" .}}
+
+<style>
+  .c-item {
+    height: 50vh;
+  }
+
+  .c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+  }
+  .c-img2 {
+    filter: brightness(0.7);
+  }
+
+  .urbanist {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 5x;
+    font-size: 20px;
+    color: rgb(116, 116, 116);
+  }
+</style>
+<style>
+  .mb {
+    margin-bottom: 0px;
+  }
+</style>
+
+<link rel="stylesheet" href="/static/css/styles-home.css" />
+
+{{define "content"}}
+
+{{$hotels := index .Data "hotels"}}
+{{$bus := index .Data "bus"}}
+{{$activity := index .Data "activity"}}
+
+<div class="row h-25">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide-to="3"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img
+          src="/static/images/pashupati.jpg"
+          class="d-block w-100 c-img"
+          alt="pashupati"
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Embark on a spiritual journey</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">Pashupatinath</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#main-page"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+
+      <div class="carousel-item c-item">
+        <img
+          src="/static/images/login_mountain_background.jpeg"
+          class="d-block w-100 c-img"
+          alt="mountains"
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Witness Nature's Grandeur</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">The Himalayas</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#!"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+
+      <div class="carousel-item c-item">
+        <img
+          src="/static/images/paragliding.jpeg"
+          class="d-block w-100 c-img"
+          alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Push your Limits</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">Adventures</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#!"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+
+      <div class="carousel-item c-item">
+        <img
+          src="/static/images/durbar.jpeg"
+          class="d-block w-100 c-img"
+          alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Immerse into Art and Culture</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">Durbar Square</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#!"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<section id="main-page" class="">
+  <div class="row mt-5">
+    <div class="text-center">
+      <h1 class="display-5 fw-bolder text-capitalize">
+        Scheduele Your Entire Trip
+      </h1>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="container d-flex justify-content-center">
+      <p class="fw-900 urbanist" style="max-width: 900px; text-align: center">
+        Experience hassle-free travel planning with our one-stop-shop website.
+        We provide a comprehensive range of options, including hotels, flights,
+        bus tickets, activities, taxis, and shops, all in one place. Compare
+        prices and amenities to plan your perfect trip today
+      </p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="page-content">
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Flights to Nepal</h2>
+          <p class="urbanist text-light">
+            Fly to Nepal for a breathtaking view of the Himalayas from your
+            plane window.
+          </p>
+          <button class="button-card">Book Now!</button>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Taxi Bookings</h2>
+          <p class="urbanist text-light">
+            Pre-book your cabs so that you don't waste one second of beauty,
+            art, and culture later!
+          </p>
+          <button class="button-card">Book Now!</button>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Bus Tickets</h2>
+          <p class="urbanist text-light">
+            Experience Nepal's natural beauty and vibrant culture on a thrilling
+            road trip. Start your journey now!
+          </p>
+          <button class="button-card">Book Now</button>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Hotel Reservations</h2>
+          <p class="urbanist text-light">
+            Easily find your perfect hotel in Nepal and enjoy a hassle-free
+            stay. Book now and explore this beautiful country with comfort.
+          </p>
+          <button class="button-card">Book Now</button>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Book Adventures!</h2>
+          <p class="urbanist text-light">
+            Unleash your inner adventurer in Nepal, with thrilling activities at
+            every corner. Book now and get ready for an unforgettable journey!
+          </p>
+          <button class="button-card">Book Now</button>
+        </div>
+      </div>
+      <div class="card-image">
+        <div class="content">
+          <h2 class="title">Shopping</h2>
+          <p class="urbanist text-light">
+            Shop for unique treasures in Nepal's vibrant markets and take home a
+            piece of its rich culture. Happy shopping!
+          </p>
+          <button class="button-card">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row mt-5">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img
+          src="/static/images/hyatt.jpeg"
+          class="d-block w-100 c-img"
+          alt="pashupati"
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Book your stay today at:</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">Our Top Hotels</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#main-page"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="hotels">
+  <div class="row mt-5">
+    <h1 class="text-center display-5 fw-bolder text-capitalize">
+      Book your Hotel Now!
+    </h1>
+    <div class="row mt-3">
+      <div class="container d-flex justify-content-center">
+        <p class="fw-900 urbanist" style="max-width: 900px; text-align: center">
+          Booking our top hotels is easy. Browse, choose, and book your dream
+          getaway with just a few clicks. Our secure online system ensures your
+          information is protected. Book now and experience luxury like never
+          before!
+        </p>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-2">
+    <a href="#" class="btn btn-lg btn-outline-success">See All Hotels!</a>
+  </div>
+  <div class="container mt-4">
+    <div class="row">
+      {{range $hotels}}
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 30rem">
+          <img
+            src="data:image/jpeg;base64,{{ .Image | base64 }}"
+            alt=""
+            class="card-img-top"
+            width="300"
+            height="170"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{.HotelRoomName}} - {{.HotelName}}</h5>
+            <p class="card-text">
+              {{.HotelAddress}}
+            </p>
+          </div>
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item">
+              <div class="float-start"><strong>Phone:</strong></div>
+              <div class="float-end">
+                {{ .HotelPhone1 }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Phone:</strong></div>
+              <div class="float-end">
+                {{ .HotelPhone2 }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Price:</strong></div>
+              <div class="float-end">
+                {{ .Price }}
+              </div>
+            </li>
+          </ul>
+          <div class="text-center mb-2">
+            <a href="#" class="btn btn-success">Book Now!</a>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<div class="row mt-5">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img
+          src="/static/images/hiking.webp"
+          class="d-block w-100 c-img"
+          alt="pashupati"
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Capture unforgettable Moments:</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">Our Adventures</h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#main-page"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="activities">
+  <div class="row mt-5">
+    <h1 class="text-center display-5 fw-bolder text-capitalize">
+      Book your Adventure Now!
+    </h1>
+    <div class="row mt-3">
+      <div class="container d-flex justify-content-center">
+        <p class="fw-900 urbanist" style="max-width: 900px; text-align: center">
+          Book your next adventure easily with just a few clicks. Choose from a
+          variety of thrilling experiences and rest assured that our secure
+          online system will protect your information. Get ready for the
+          adventure of a lifetime - book now!
+        </p>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-2">
+    <a href="#" class="btn btn-lg btn-outline-success">See All Adventures!</a>
+  </div>
+  <div class="container mt-4">
+    <div class="row">
+      {{range $activity}}
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 33">
+          <img
+            src="data:image/jpeg;base64,{{ .Image | base64 }}"
+            alt=""
+            class="card-img-top"
+            width="300"
+            height="170"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{.ActivityName}}</h5>
+            <p class="card-text">
+              <strong>{{.Location}}</strong>
+            </p>
+            <p class="card-text">
+              {{.Email}}
+            </p>
+          </div>
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item">
+              <div class="float-start"><strong>Phone:</strong></div>
+              <div class="float-end">
+                {{ .PhoneNumber }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Price:</strong></div>
+              <div class="float-end">
+                {{ .ActivityPrice }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Duration:</strong></div>
+              <div class="float-end">{{ .ActivityDuration }} mins</div>
+            </li>
+          </ul>
+          <div class="text-center mb-2">
+            <a href="#" class="btn btn-success">Book Now!</a>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<div class="mt-5">
+  <div class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img
+          src="/static/images/bus.jpeg"
+          class="d-block w-100 c-img"
+          alt="pashupati"
+        />
+        <div class="carousel-caption d-none d-md-block top-0 mt-4">
+          <p class="mt-5 fs-3 text-uppercase">Go on unforgettable Journeys:</p>
+          <p></p>
+          <h1 class="display-1 fw-bolder text-capitalize">
+            Our Top Bus Services
+          </h1>
+          <a
+            class="btn btn-lg btn-outline-light mt-3"
+            style="background-color: transparent; border-color: white"
+            href="#main-page"
+            >Learn More!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="bus">
+  <div class="row mt-5">
+    <h1 class="text-center display-5 fw-bolder text-capitalize">
+      Book your Travel Now!
+    </h1>
+    <div class="row mt-3">
+      <div class="container d-flex justify-content-center">
+        <p class="fw-900 urbanist" style="max-width: 900px; text-align: center">
+          Planning a bus trip? No need to worry! With our easy-to-use online
+          booking system, you can choose from a variety of routes and schedules
+          that suit your travel needs and budget. Our top priority is ensuring
+          the security of your information, so you can rest assured that your
+          booking is safe and secure. Get ready for a stress-free journey and
+          book your bus ticket now!
+        </p>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-2">
+    <a href="#" class="btn btn-lg btn-outline-success">See All Adventures!</a>
+  </div>
+  <div class="container mt-4">
+    <div class="row">
+      {{range $bus}}
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 33">
+          <img
+            src="data:image/jpeg;base64,{{ .Image | base64 }}"
+            alt=""
+            class="card-img-top"
+            width="300"
+            height="170"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{.BusName}}</h5>
+            <p class="card-text">
+              <strong>{{.BusStart}}</strong> to <strong>{{.BusEnd}}</strong>
+            </p>
+          </div>
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item">
+              <div class="float-start"><strong>Phone:</strong></div>
+              <div class="float-end">
+
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Price:</strong></div>
+              <div class="float-end">
+                {{ .Price }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="float-start"><strong>Duration:</strong></div>
+              <div class="float-end"></div>
+            </li>
+          </ul>
+          <div class="text-center mb-2">
+            <a href="#" class="btn btn-success">Book Now!</a>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ end }}

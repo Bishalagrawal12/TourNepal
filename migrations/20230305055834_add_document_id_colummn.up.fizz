@@ -1,0 +1,1 @@
+add_column("merchant_documents", "document_id", "string", {})

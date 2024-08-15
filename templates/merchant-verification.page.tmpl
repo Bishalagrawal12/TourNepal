@@ -1,0 +1,41 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+<div class="title">
+  <h4>
+    You're almost there! Please complete your profile information to proceed..
+  </h4>
+</div>
+
+{{$user := index .Data "user_details"}}
+
+<div class="col-md-12">
+  <form
+    action="/merchant/{{ $user.ID }}/verification"
+    method="post"
+    class="needs-validation"
+    novalidate
+  >
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-group mt-5">
+      <label for="verification_code"
+        >Please enter the 4 digit verification code, sent via email</label
+      >
+      {{with .Form.Errors.Get "verification_code"}}
+      <label class="text-danger">{{.}}</label>
+      {{ end }}
+      <input type="text" name="verification_code" id="verification_code"
+      autocomplete="off" class="form-control form-control-lg col-md-6
+      {{with .Form.Errors.Get "verification_code"}} is-invalid {{ end }}"/>
+
+      <hr />
+      <input
+        type="submit"
+        class="btn btn-success btn-lg col-md-6"
+        value="Verify!"
+      />
+    </div>
+  </form>
+</div>
+{{ end }}

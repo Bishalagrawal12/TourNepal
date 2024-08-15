@@ -1,0 +1,102 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+
+{{$user := index .Data "user_details"}}
+{{$res := index .Data "one_res"}}
+
+<div class="title">
+  <h4>Reservation Details:</h4>
+</div>
+
+<div class="col-md-12">
+  <div class="row">
+    <strong>Name: </strong> &ensp; {{ $res.FirstName }} {{ $res.LastName }}
+    <br />
+  </div>
+  <div class="row">
+    <strong>Hotel: </strong> &ensp; {{ $res.Room.HotelName }} <br />
+  </div>
+  <div class="row">
+    <strong>Room: </strong> &ensp; {{ $res.Room.HotelRoomName }} <br />
+  </div>
+  <div class="row">
+    <strong>Start Date: </strong> &ensp; {{ humanDate $res.ResDateStart }} <br />
+  </div>
+  <div class="row">
+    <strong>End Date: </strong> &ensp; {{ humanDate $res.ResDateEnd }} <br />
+  </div>
+
+  <form
+    action="/merchant/{{ $user.ID }}/merchant-show-reservations/{{
+      $res.ReservationID
+    }}/hotel"
+    method="post"
+    novalidate
+  >
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-row mt-3">
+        <strong><label for="numPeople">Number of People per reservation:</label></strong>
+        {{with .Form.Errors.Get "numPeople"}}
+        <label class="text-danger">{{.}}</label>
+        {{ end }}
+        <input type="text" class="form-control form-control-lg
+        {{with .Form.Errors.Get "numPeople"}} is-invalid {{ end }}" id="numPeople"
+        name="numPeople" value="{{$res.NumPeople}}" />
+    </div>
+
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="phone">Phone Number:</label></strong>
+        {{with .Form.Errors.Get "phone"}}
+        <label class="text-danger">{{.}}</label>
+        {{ end }}
+        <input type="text" class="form-control form-control-lg
+        {{with .Form.Errors.Get "phone"}} is-invalid {{ end }}" id="phone"
+        name="phone" placeholder="Phone" value="{{ $res.PhoneNumber }}" />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="email">Email Address:</label></strong>
+        {{with .Form.Errors.Get "email"}}
+        <label class="text-danger">{{.}}</label>
+        {{ end }}
+        <input type="text" class="form-control form-control-lg
+        {{with .Form.Errors.Get "email"}} is-invalid {{ end }}" id="email"
+        name="email" placeholder="Bus Stops at" value="{{ $res.Email }}" />
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="float-sm-left">
+            <div class="form-group mt-2">
+                <input type="submit" class="btn btn-success btn-lg" value="Save"></input>
+                <a href="#!" onclick="window.history.go(-1)" class="btn btn-warning btn-lg">Cancel</a>
+            </div>
+        </div>
+         <div class="float-sm-right">
+            <div class="form-group mt-2">
+                <a href="#!" onclick="deleteRes({{$user.ID}}, {{$res.ReservationID}})" class="btn btn-danger btn-lg">Delete Bus</a>
+            </div>
+        </div>
+    </div>
+
+  </form>
+</div>
+
+{{ end }}
+{{define "js"}}
+<script>
+    const deleteRes = (userID, id) => {
+    attention.custom({
+      icon: "warning",
+      msg: "Are you Sure?",
+      callback: (result) => {
+        if (result !== false) {
+          window.location.href = "/merchant/" + userID + "/delete-reservation/" + id + "/hotel";
+        }
+      },
+    });
+  };
+</script>
+{{end}}

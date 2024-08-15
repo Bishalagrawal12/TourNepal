@@ -1,0 +1,86 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+<div class="title">
+  <h4>Please Enter your Address to Proceed:</h4>
+</div>
+
+{{$user := index .Data "user_details"}}
+
+<div class="col-md-12">
+  {{$adr := index .Data "merchant_address"}}
+  <form
+    action="/merchant/{{ $user.ID }}/verification-address"
+    method="post"
+    class="needs-validation"
+    novalidate
+  >
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-group mt-5">
+      <div class="row">
+        <div class="col">
+          <strong><label for="city">City: </label></strong>
+          {{with .Form.Errors.Get "city"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="city" id="city" autocomplete="off"
+          class="form-control form-control-lg
+          {{with .Form.Errors.Get "city"}} is-invalid {{ end }}" value =
+          "{{ $adr.City }}"/>
+        </div>
+        <div class="col">
+          <strong><label for="state">State: </label></strong>
+          {{with .Form.Errors.Get "state"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="state" id="state" autocomplete="off"
+          class="form-control form-control-lg
+          {{with .Form.Errors.Get "state"}} is-invalid {{ end }}" value =
+          "{{ $adr.State }}" />
+        </div>
+        <div class="col">
+          <strong><label for="country">Country: </label></strong>
+          {{with .Form.Errors.Get "country"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="country" id="country" autocomplete="off"
+          class="form-control form-control-lg
+          {{with .Form.Errors.Get "country"}} is-invalid {{ end }}" value =
+          "{{ $adr.Country }}" />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <strong><label for="address1">Address Line 1: </label></strong>
+          {{with .Form.Errors.Get "address1"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="address1" id="address1" autocomplete="off"
+          class="form-control form-control-lg
+          {{with .Form.Errors.Get "address1"}} is-invalid {{ end }}" value =
+          "{{ $adr.AddressLine1 }}" />
+        </div>
+        <div class="col">
+          <strong><label for="address2">Address Line 2: </label></strong>
+          {{with .Form.Errors.Get "address2"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="address2" id="address2" autocomplete="off"
+          class="form-control form-control-lg
+          {{with .Form.Errors.Get "address2"}} is-invalid {{ end }}" value =
+          "{{ $adr.AddressLine2 }}" />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <hr />
+        <input
+          type="submit"
+          class="btn btn-success btn-lg col-md-6"
+          value="Verify!"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+{{ end }}

@@ -1,0 +1,107 @@
+{{template "base" .}}
+
+{{define "content"}}
+<div class="container">
+  <div class="row mt-3">
+    <div class="col">
+      <div class="row mt-2">
+        <h1>Make Hotel Reservation</h1>
+      </div>
+      <div class="row mt-1">
+        <form
+          action="/make-hotel-reservation"
+          method="post"
+          class="needs-validation"
+          novalidate
+        >
+          <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+          <div class="form-group mt-5">
+            <strong><label for="hr_id">Enter Hotel Room ID:</label></strong>
+            <input type="text" class="form-control" name="hr_id" id="hr_id" />
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <div class="form-group mt-3">
+                <strong><label for="first_name">Enter First Name:</label></strong>
+                <input type="text" class="form-control" name="first_name" id="first_name" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group mt-3">
+                <strong><label for="last_name">Enter Last Name:</label></strong>
+                <input type="text" class="form-control" name="last_name" id="last_name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <strong
+              ><label for="res_date_start">Enter Reservation Date Start:</label></strong
+            >
+            <input
+              type="date"
+              class="form-control"
+              name="res_date_start"
+              id="res_date_end"
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <strong
+              ><label for="res_date_end">Enter Reservation Date End:</label></strong
+            >
+            <input
+              type="date"
+              class="form-control"
+              name="res_date_end"
+              id="res_date_end"
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <strong><label for="num_people">Enter Num People:</label></strong>
+            <input
+              type="text"
+              class="form-control"
+              name="num_people"
+              id="num_people"
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <strong
+              ><label for="phone">Enter Phone Number:</label></strong
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              id="phone"
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <strong
+              ><label for="email">Enter Email Address:</label></strong
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              id="email"
+            />
+          </div>
+
+          <div class="form-group mt2">
+            <hr>
+          </div>
+          <div class="fowm-group mt-3">
+            <input type="submit" class="btn btn-primary mt-2 btn-lg">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

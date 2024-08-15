@@ -1,0 +1,56 @@
+{{template "login" .}}
+
+{{define "content"}}
+<section class="vh-100 background-image">
+  <div class="container py-5 h-100 all-contents">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem">
+          <div class="card-body p-5 text-left">
+            <h2 class="mb-5 title-text">Sign in to your account.</h2>
+
+            <form action="/login" method="post" novalidate>
+              <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+              <div class="form-outline mb-4 text-left">
+                <label class="form-label" for="email">Email Address:</label>
+                {{with .Form.Errors.Get "email"}}
+                <label class="text-danger">{{.}}</label>
+                {{ end }}
+                <input type="email" id="email" name="email" class="form-control
+                form-control-lg {{with .Form.Errors.Get "email"}} is-invalid
+                {{ end }}" />
+              </div>
+
+              <div class="form-outline mb-4 text-left">
+                <label class="form-label" for="password">Password:</label>
+                {{with .Form.Errors.Get "password"}}
+                <label class="text-danger">{{.}}</label>
+                {{ end }}
+                <input type="password" id="password" name="password"
+                class="form-control form-control-lg
+                {{with .Form.Errors.Get "password"}} is-invalid {{ end }}" />
+              </div>
+              <div class="text-left mb-3">
+                <a class="small text-muted" href="#!">Forgot password?</a>
+              </div>
+
+              <input
+                class="btn btn-primary btn-lg btn-block"
+                type="submit"
+                value="Sign In"
+              />
+            </form>
+
+            <div class="text-left mt-3">
+              <p class="pb-lg-2" style="color: #393f81">
+                Don't have an account?
+                <a href="/signup" style="color: #393f81">Register here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

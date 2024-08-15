@@ -1,0 +1,4 @@
+create_table("merchant_categories") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("category", "string", {})
+}

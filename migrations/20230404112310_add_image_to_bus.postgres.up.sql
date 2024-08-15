@@ -1,0 +1,2 @@
+ALTER TABLE bus
+ADD COLUMN image BYTEA;

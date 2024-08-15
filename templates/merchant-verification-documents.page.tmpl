@@ -1,0 +1,56 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+<div class="title">
+  <h4>Please Enter your Document Details for Final Verification:</h4>
+</div>
+
+{{$user := index .Data "user_details"}}
+
+<div class="col-md-12">
+  <form
+    action="/merchant/{{ $user.ID }}/verification-documents"
+    method="post"
+    class="needs-validation"
+    enctype="multipart/form-data"
+    novalidate
+  >
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-group mt-5">
+      <div class="row">
+        <div class="col">
+          <strong><label for="documentID">Document ID: </label></strong>
+          {{with .Form.Errors.Get "documentID"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+          <input type="text" name="documentID" id="documentID"
+          autocomplete="off" class="form-control form-control-lg
+          {{with .Form.Errors.Get "documentID"}} is-invalid {{ end }}" />
+        </div>
+        <div class="col">
+          <strong
+            ><label for="image"
+              >Please upload an image of your document:</label
+            ></strong
+          >
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="form-control-file form-control-lg"
+          />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <hr />
+        <input
+          type="submit"
+          class="btn btn-success btn-lg col-md-6"
+          value="Verify!"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+{{ end }}

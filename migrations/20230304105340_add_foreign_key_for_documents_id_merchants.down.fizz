@@ -1,0 +1,1 @@
+drop_foreign_key("reservations", "merchants_merchant_documents_id_fk", {})

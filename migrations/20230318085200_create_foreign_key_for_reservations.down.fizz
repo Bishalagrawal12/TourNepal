@@ -1,0 +1,1 @@
+drop_foreign_key("bus_reservations", "bus_reservations_bus_id_fk", {})

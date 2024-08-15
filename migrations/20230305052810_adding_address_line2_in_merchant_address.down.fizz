@@ -1,0 +1,1 @@
+drop_column("merchant_address", "address_line_2")

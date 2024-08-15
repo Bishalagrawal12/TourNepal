@@ -1,0 +1,4 @@
+add_foreign_key("activity_reservations", "activity_id", {"activity": ["id"]}, {
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

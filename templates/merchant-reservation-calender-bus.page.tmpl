@@ -1,0 +1,59 @@
+{{template "merchant" .}}
+
+{{define "page-title"}}
+Reservation Calender
+{{ end }}
+
+{{define "content"}}
+{{$now := index .Data "now"}}
+{{$dim := index .IntMap "days_in_month"}}
+
+{{$user := index .Data "user_details"}}
+
+{{$currMonth := index .StringMap "this_month"}}
+{{$currYear := index .StringMap "this_month_year"}}
+<div class="title">
+        <h4>Reservation Calenders</h4>
+</div>
+<div class="col-md-12 mt-3">
+    <div class="text-center">
+        <h4>{{formatDate $now "January"}} {{formatDate $now "2006"}}</h4>
+    </div>
+
+    <div class="float-sm-left">
+        <a class="btn btn-sm btn-outline-secondary" 
+            href="/merchant/{{$user.ID}}/reservation-calender?y={{index .StringMap "last_month_year"}}&m={{index .StringMap "last_month"}}">&lt;&lt;</a>
+    </div>
+    <div class="float-sm-right">
+        <a class="btn btn-sm btn-outline-secondary" 
+            href="/merchant/{{$user.ID}}/reservation-calender?y={{index .StringMap "next_month_year"}}&m={{index .StringMap "next_month"}}">&gt;&gt;</a>
+    </div>
+
+    <div class="mt-3">
+        <form action="" method="post">
+        <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+        <input type="hidden" name="m" value="{{index .StringMap "this_month"}}">
+        <input type="hidden" name="y" value="{{index .StringMap "this_month_year"}}">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <tr class="table-dark">
+                    {{range $index := iterate $dim}}
+                    <td class="text-center">
+                        {{add $index 1}}
+                    </td>
+                    {{end}}
+                </tr>
+                {{range $index := iterate $dim}}
+                <td class="text-center">
+                    <a href="#!">10</a>
+                </td>
+                {{end}}
+            </table>
+        </div>
+    </form>
+    </div>
+    
+</div>
+
+{{ end }}

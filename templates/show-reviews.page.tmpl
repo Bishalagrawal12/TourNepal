@@ -1,0 +1,251 @@
+{{template "merchant" .}}
+
+{{define "css"}}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+<style>
+  body {
+    font-family: Arial;
+  }
+
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+  }
+
+  /* Fade in tabs */
+  @-webkit-keyframes fadeEffect {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeEffect {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+{{ end }}
+
+{{define "content"}}
+
+{{$user := index .Data "user_details"}}
+
+<div class="title">
+  <h4>Reviews For your Products:</h4>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs mb-3 card-header" id="ex1" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a
+          class="tablinks nav-link"
+          id="ex1-tab-1"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-1"
+          role="tab"
+          aria-controls="ex1-tabs-1"
+          aria-selected="true"
+          onclick="openCity(event, 'bus')"
+          >Bus
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="tablinks nav-link"
+          id="ex1-tab-2"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-2"
+          role="tab"
+          aria-controls="ex1-tabs-2"
+          aria-selected="false"
+          onclick="openCity(event, 'hotel')"
+          >Hotel Rooms</a
+        >
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="tablinks nav-link"
+          id="ex1-tab-2"
+          data-mdb-toggle="tab"
+          href="#ex1-tabs-2"
+          role="tab"
+          aria-controls="ex1-tabs-2"
+          aria-selected="false"
+          onclick="openCity(event, 'recreation')"
+          >Recreational Activities</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <div class="card-body">
+    <div class="container">
+      <div class="tabcontent" id="bus">
+        {{$busRev := index .Data "bus_reviews"}}
+        {{range $busRev}}
+        <h5>Reviews For: {{.ItemName}}</h5>
+
+        {{ range.Review }}
+        <div class="card">
+          <div class="card-body">
+            <div class="title">
+              <div class="float-sm-left text-primary">
+                {{.FirstName}} {{.LastName}} ⭐️ {{.Stars}}
+              </div>
+              <div class="float-sm-right text-secondary">
+                {{.Email}}
+              </div>
+            </div>
+            <br />
+            <div class="title">
+              <div class="text-secondary">Phone Number: {{.Phone}}</div>
+              <br />
+              <div class="text-secondary">
+                {{.Review}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        {{ end }}
+        <br />
+        {{ end }}
+      </div>
+
+      <div class="tabcontent" id="hotel">
+        {{$hotelRev := index .Data "hotel_reviews"}}
+        {{range $hotelRev}}
+        <h5>Reviews For: {{.ItemName}}</h5>
+
+        {{ range.Review }}
+        <div class="card">
+          <div class="card-body">
+            <div class="title">
+              <div class="float-sm-left text-primary">
+                {{.FirstName}} {{.LastName}} ⭐️ {{.Stars}}
+              </div>
+              <div class="float-sm-right text-secondary">
+                {{.Email}}
+              </div>
+            </div>
+            <br />
+            <div class="title">
+              <div class="text-secondary">Phone Number: {{.Phone}}</div>
+              <br />
+              <div class="text-secondary">
+                {{.Review}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        {{ end }}
+        <br />
+        {{ end }}
+      </div>
+      <div class="tabcontent" id="recreation">
+        {{$activityRev := index .Data "activity_reviews"}}
+        {{range $activityRev}}
+        <h5>Reviews For: {{.ItemName}}</h5>
+
+        {{ range.Review }}
+        <div class="card">
+          <div class="card-body">
+            <div class="title">
+              <div class="float-sm-left text-primary">
+                {{.FirstName}} {{.LastName}} ⭐️ {{.Stars}}
+              </div>
+              <div class="float-sm-right text-secondary">
+                {{.Email}}
+              </div>
+            </div>
+            <br />
+            <div class="title">
+              <div class="text-secondary">Phone Number: {{.Phone}}</div>
+              <br />
+              <div class="text-secondary">
+                {{.Review}}
+              </div>
+            </div>
+          </div>
+          <br />
+          {{ end }}
+          <br />
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{define "js"}}
+<script>
+  var i, tabcontent;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  document.getElementById("bus").style.display = "block";
+  document.getElementById("ex1-tab-1").className += " active";
+
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+{{ end }}

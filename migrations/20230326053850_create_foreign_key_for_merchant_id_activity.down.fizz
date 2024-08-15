@@ -1,0 +1,1 @@
+drop_foreign_key("activity", "activity_merchant_id_fk", {})

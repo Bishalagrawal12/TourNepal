@@ -1,0 +1,254 @@
+{{template "merchant" .}}
+
+{{define "page-title"}}
+Reservation Calender
+{{ end }}
+
+<link rel="stylesheet" href="/static/css/res-calender.css">
+<link rel="stylesheet" href="/static/css/resesvationTabs.css">
+
+
+{{define "content"}}
+
+{{$now := index .Data "now"}}
+{{$dim := index .IntMap "days_in_month"}}
+
+{{$user := index .Data "user_details"}}
+
+{{$tab := index .StringMap "tab"}}
+
+{{$currMonth := index .StringMap "this_month"}}
+{{$currYear := index .StringMap "this_month_year"}}
+
+{{$inactiveStart := index .Data "disabledDaysStart"}}
+{{$firstWeek := index .Data "first_active_days"}}
+{{$secondWeek := index .Data "second_active_days"}}
+{{$thirdWeek := index .Data "third_active_days"}}
+{{$fourthWeek := index .Data "fourth_active_days"}}
+{{$fifthWeek := index .Data "fifth_active_days"}}
+{{$inactiveEnd := index .Data "disabledDaysEnd"}}
+
+{{$today := index .IntMap "date_today"}}
+
+<div class="title">
+  <h4>Here is how your Calendar is Looking: </h4>
+</div>
+
+
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "bus"}} active {{end}}"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/reservation-calender?t=bus"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      ><p class="text-primary">
+        <h6>Bus Reservations</h6>
+      </p></a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "hotel"}} active {{end}}"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/reservation-calender?t=hotel"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      ><p class="text-primary">
+        <h6>Hotel Reservations</h6>
+      </p></a
+    >
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link {{if eq $tab "recreation"}} active {{end}}"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="/merchant/{{$user.ID}}/reservation-calender?t=recreation"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      ><p class="text-primary">
+        <h6>Recreational Activity Reservations</h6>
+      </p></a
+    >
+  </li>
+</ul>
+
+
+<main class="calendar-contain">
+  <section class="title-bar"></section>
+
+  <aside class="calendar__sidebar">
+    <div class="sidebar__nav">
+      <!-- Icons by Icons8 -->
+      <span class="sidebar__nav-item"
+        ><a href="/merchant/{{$user.ID}}/reservation-calender?y={{index .StringMap "next_month_year"}}&m={{index .StringMap "next_month"}}&t={{$tab}}"">
+          <img
+          class="icon icons8-Up"
+          width="22px"
+          height="22px"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAxklEQVRYR+3VwQ2DMAyF4Z8NOkI36AodpZ2sjMAoHaWdoJWlIEXI4RHnwMWROAH2ZxuSiZPXdHJ+EjDagUcZ4Rwd5QjAkr9K4icQQkQBdfK1+BAiAvCShxG9gG3b6xGExtED8Gb+K6VbnNA3cRTQCl4DzNKNOALYC7oFdCMUQFXkAboQCvAGbkDrF2sBasQXuAIfb7NSgAtwB5bGTrcHWBFWhF3uUgC1wyqAen/4NExAdiA7kB3IDmQH5GGjHhg9DVV8eT8Bf2HqNiEP+isaAAAAAElFTkSuQmCC"
+      />
+        </a></span>
+      <span class="sidebar__nav-item"
+        ><a href="/merchant/{{$user.ID}}/reservation-calender?y={{index .StringMap "last_month_year"}}&m={{index .StringMap "last_month"}}&t={{$tab}}">
+          <img
+          class="icon icons8-Down"
+          width="22px"
+          height="22px"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA4UlEQVRYR+2WgQnCMBBFXzdwBSdwBUfRyXQER3EUN1AOEgnxLrkkhYCkUFpI7/+Xf1fajcnHNtmfBTCawDu0sFunuzAYL4CVwEpgJbAS+P8EDsAZeBj/DbUELsAznKpE7WMkxSfgCtwVhRKAmN+AF3AM1x+JGkAUkUINwgKo1X1BagDyYElMA3Cbi7gHoASRAzSZtwBYEClAs3krgAYhQxbnI73XBrbrLdCK0p3m69bbYv79e2cgF9Agms17WpCCdPU830lvAlFHIORw93xvALO33oXRBLw+uw/hsHEUmJ7ABzErNiGyzfJcAAAAAElFTkSuQmCC"
+      />
+        </a></span>
+    </div>
+    <h2 class="sidebar__heading">
+      {{formatDate $now "January"}} {{formatDate $now "2006"}}
+    </h2>
+    <ul class="sidebar__list">
+      {{if eq $tab "bus"}}
+      {{$buses := index .Data "all_bus"}}
+      {{range $buses}}
+      <li class="sidebar__list-item sidebaßr__list-item--complete">
+        <span>{{.BusName}}</span> <br>{{.BusStart}} to {{.BusEnd}}
+      </li>
+      {{end}}
+      {{end}}
+
+      {{if eq $tab "hotel"}}
+      {{$hotels := index .Data "all_hotel"}}
+      {{range $hotels}}
+      <li class="sidebar__list-item sidebaßr__list-item--complete">
+        <span>{{.HotelName}}</span> <br>{{.HotelRoomName}}
+      </li>
+      {{end}}
+      {{end}}
+
+      {{if eq $tab "recreation"}}
+      {{$rec := index .Data "all_activity"}}
+      {{range $rec}}
+      <li class="sidebar__list-item sidebaßr__list-item--complete">
+        <span>{{.ActivityName}}</span> <br>{{.Location}}
+      </li>
+      {{end}}
+      {{end}}
+    </ul>
+  </aside>
+
+  <section class="calendar__days">
+    <section class="calendar__top-bar">
+      <span class="top-bar__days">Mon</span>
+      <span class="top-bar__days">Tue</span>
+      <span class="top-bar__days">Wed</span>
+      <span class="top-bar__days">Thu</span>
+      <span class="top-bar__days">Fri</span>
+      <span class="top-bar__days">Sat</span>
+      <span class="top-bar__days">Sun</span>
+    </section>
+
+    <section class="calendar__week">
+
+      {{range $inactiveStart}}
+      <div class="calendar__day inactive">
+        <span class="calendar__date">{{.}}</span>
+        <span class="calendar__task">0</span>
+      </div>
+      {{end}}
+
+      {{range $firstWeek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}"
+      onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+          <span class="calendar__date">{{.Day}}</span>
+          <span class="calendar__task">{{.NumRes}}</span>
+        </div>
+      </a>
+      {{end}}
+    </section>
+
+    <section class="calendar__week">
+      {{range $secondWeek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}"
+      onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+        <span class="calendar__date">{{.Day}}</span>
+        <span class="calendar__task">{{.NumRes}}</span>
+      </div>
+      {{end}}
+    </section>
+
+    <section class="calendar__week">
+      {{range $thirdWeek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}"
+      onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+        <span class="calendar__date">{{.Day}}</span>
+        <span class="calendar__task">{{.NumRes}}</span>
+      </div>
+      {{end}}
+    </section>
+
+    <section class="calendar__week">
+      {{range $fourthWeek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}"
+      onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+        <span class="calendar__date">{{.Day}}</span>
+        <span class="calendar__task">{{.NumRes}}</span>
+      </div>
+      {{end}}
+    </section>
+
+    {{$nextRow := index .Data "more_than_5"}}
+
+    <section class="calendar__week">
+      {{range $fifthWeek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}"
+      onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+        <span class="calendar__date">{{.Day}}</span>
+        <span class="calendar__task">{{.NumRes}}</span>
+      </div>
+      </a>
+      {{end}}
+      {{if eq $nextRow 0}}
+      {{range $inactiveEnd}}
+      <div class="calendar__day inactive">
+        <span class="calendar__date">{{.}}</span>
+        <span class="calendar__task">0</span>
+      </div>
+      {{end}}
+      {{end}}
+    </section>
+
+
+    {{if eq $nextRow 1}}
+    {{$sixthweek := index .Data "sixth_active_days"}}
+    <section class="calendar__week">
+      {{range $sixthweek}}
+      <div class="calendar__day {{if gt .NumRes 0}} booked {{end}} {{if eq .Day $today}} today {{end}}" 
+        onclick="window.location='/merchant/{{$user.ID}}/show-reservations-per-day?month={{$currMonth}}&day={{.Day}}&year={{$currYear}}&tab={{$tab}}'">
+        <span class="calendar__date">{{.Day}}</span>
+        <span class="calendar__task">{{.NumRes}}</span>
+      </div>
+
+      {{end}}
+      {{range $inactiveEnd}}
+      <div class="calendar__day inactive">
+        <span class="calendar__date">{{.}}</span>
+        <span class="calendar__task">0</span>
+      </div>
+      {{end}}
+    </section>
+    {{end}}
+  </section>
+</main>
+
+{{ end }}
+
+
+{{define "js"}}
+<script>
+
+</script>
+{{end}}

@@ -1,0 +1,197 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+{{$user := index .Data "user_details"}}
+{{$hotel := index .Data "hotel_reg"}}
+
+<div class="title">
+    <h4>Please fill up this form to add a Hotel Room to your Portfolio:</h4>
+</div>
+<div class="col-md-12 mt-3">
+  <form action="/merchant/{{ $user.ID }}/add-hotel" enctype="multipart/form-data" method="post" novalidate>
+
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="hotel_name">Name of the Hotel:</label></strong>
+        {{with .Form.Errors.Get "hotel_name"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_name"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_name"}} is-invalid {{ end }}"
+          id="hotel_name"
+          name="hotel_name"
+          placeholder="Hotel Name"
+          value="{{$hotel.HotelName}}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="hotel_room_name">Name of the Hotel Room:</label></strong>
+        {{with .Form.Errors.Get "hotel_room_name"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_room_name"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_room_name"}} is-invalid {{ end }}"
+          id="hotel_room_name"
+          name="hotel_room_name"
+          placeholder="Hotel Room Name"
+          value="{{$hotel.HotelRoomName}}"
+        />
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <strong><label for="office_address">Hotel Address in detail</label></strong>
+      {{with .Form.Errors.Get "office_address"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="text"
+        class="form-control form-control-lg {{with .Form.Errors.Get "office_address"}} is-invalid {{ end }}"
+        id="office_address"
+        name="office_address"
+        placeholder="Office Address"
+        value="{{$hotel.HotelAddress}}"
+      />
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="hotel_type">Hotel Type (Hotel Stars):</label></strong>
+        {{with .Form.Errors.Get "hotel_type"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_type"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_type"}} is-invalid {{ end }}"
+          id="hotel_type"
+          name="hotel_type"
+          placeholder="Hotel Type (Hotel Stars)"
+          value="{{$hotel.HotelType}}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="hotel_pan">Hotel PAN:</label></strong>
+        {{with .Form.Errors.Get "hotel_pan"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_pan"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_pan"}} is-invalid {{ end }}"
+          id="hotel_pan"
+          name="hotel_pan"
+          placeholder="Hotel PAN Number:"
+          value="{{$hotel.HotelPAN}}"
+        />
+      </div>
+    </div>
+
+    <div class="form-row mt-3">
+      <div class="form-group col-md-4">
+        <strong><label for="no_rooms">Number of Rooms:</label></strong>
+        {{with .Form.Errors.Get "no_rooms"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="no_rooms"
+          class="form-control form-control-lg {{with .Form.Errors.Get "no_rooms"}} is-invalid {{ end }}"
+          id="no_rooms"
+          name="no_rooms"
+          placeholder="Number of Rooms of type"
+          value="{{$hotel.HotelNumRooms}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="hotel_phone_1">Hotel Phone 1:</label></strong>
+        {{with .Form.Errors.Get "hotel_phone_1"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_phone_1"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_phone_1"}} is-invalid {{ end }}"
+          id="hotel_phone_1"
+          name="hotel_phone_1"
+          placeholder="Hotel Phone Number:"
+          value="{{$hotel.HotelPhone1}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="hotel_phone_2">Hotel Phoen 2:</label></strong>
+        {{with .Form.Errors.Get "hotel_phone_2"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="hotel_phone_2"
+          class="form-control form-control-lg {{with .Form.Errors.Get "hotel_phone_2"}} is-invalid {{ end }}"
+          id="hotel_phone_2"
+          name="hotel_phone_2"
+          placeholder="Hotel Phone 2"
+          value="{{$hotel.HotelPhone2}}"
+        />
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <strong><label for="price">Price of the Hotel Room</label></strong>
+      {{with .Form.Errors.Get "price"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="text"
+        class="form-control form-control-lg {{with .Form.Errors.Get "price"}} is-invalid {{ end }}"
+        id="price"
+        name="price"
+        placeholder="Price of the Hotel Room"
+        value="{{$hotel.Price}}"
+      />
+    </div>
+
+    
+    <div class="form-group mt-3">
+      <strong><label for="hotel_desc">Short Description of the Hotel Room</label></strong>
+      {{with .Form.Errors.Get "hotel_desc"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="text"
+        class="form-control form-control-lg {{with .Form.Errors.Get "hotel_desc"}} is-invalid {{ end }}"
+        id="hotel_desc"
+        name="hotel_desc"
+        placeholder="Short Hotel Room Description:"
+        value="{{$hotel.HotelRoomDescription}}"
+      />
+    </div>
+
+    <div class="form-group mt-3">
+      <strong
+            ><label for="image"
+              >Please upload an image of your Hotel Room (Please make sure it is less than 1 MB):</label
+            ></strong
+          >
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="form-control-file form-control-lg"
+          />
+        </div>
+    </div>
+
+
+    <div class="form-group mt-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="agreed" name="agreed" value="agreed"/>
+        <label class="form-check-label" for="agreed"> I agree to the Terms and Conditions </label>
+         {{with .Form.Errors.Get "agreed"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      </div>
+    </div>
+    <div class="form-group mt-5">
+        <input type="submit" class="btn btn-success btn-block btn-lg"></input>
+    </div>
+  </form>
+</div>
+
+{{end}}

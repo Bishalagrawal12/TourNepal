@@ -1,0 +1,155 @@
+{{define "login"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .background-image {
+        background-image: url("/static/images/mountain_photo_2.jpeg");
+        background-size: coveer;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 120vh;
+      }
+
+      @media screen and (max-width: 600px) {
+        .background-image {
+          background-size: coveer;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          height: 170vh;
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        .background-image {
+          background-size: coveer;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          height: 200vh;
+        }
+      }
+
+      @media screen and (max-width: 300px) {
+        .background-image {
+          background-size: coveer;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          height: 250vh;
+        }
+      }
+
+      .contents {
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+      .all-contents {
+        position: relative;
+        z-index: 9999;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      .title-text {
+        font-weight: bold;
+      }
+    </style>
+
+    <link rel="stylesheet" href="/static/admin/css/style.css" />
+    <link rel="shortcut icon" href="/static/admin/images/favicon.png" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/notie/dist/notie.min.css"
+    />
+
+    {{block "css" .}}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    {{end}}
+  </head>
+  <body>
+    {{block "content" .}}
+
+    {{ end }}
+
+   <script src="/static/js/app.js"></script>
+    <script src="https://unpkg.com/notie"></script>
+    <script src="https://unpkg.com/notie"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+    {{block "js" .}}
+
+    {{ end }}
+
+    <script>
+      let attention = Prompt();
+
+      (function () {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms  = document.querySelectorAll("needs-validation");
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+
+      function notify(msg, alertType) {
+        notie.alert({
+          type: alertType,
+          text: msg,
+        });
+      }
+
+
+      function notifyModal(title, text, icon, button) {
+        Swal.fire({
+          title: title,
+          text: text,
+          icon: icon,
+          button: button,
+        });
+      }
+
+      {{with .Error}}
+        notify("{{.}}", "error");
+      {{end}}
+
+      {{with .Flash}}
+        notify("{{.}}", "success")
+      {{end}}
+
+      {{with .Warning}}
+        notify("{{.}}", "warning")
+      {{end}}
+    </script>
+  </body>
+</html>
+{{ end }}

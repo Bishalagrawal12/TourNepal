@@ -1,0 +1,1 @@
+drop_foreign_key("activity_reservations", "activity_reservations_activity_id_fk", {})

@@ -1,0 +1,179 @@
+{{template "merchant" .}}
+
+{{define "content"}}
+{{$user := index .Data "user_details"}}
+{{$activity := index .Data "activity_details"}}
+<div class="title">
+  <h4>Please fill up this form to add an Activity to your Portfolio</h4>
+</div>
+<div class="col-md-12 mt-3">
+  <form action="/merchant/{{ $user.ID }}/add-activity/{{$activity.ActivityID}}" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+    <div class="form-row mt-3">
+      <div class="form-group col-md-6">
+        <strong><label for="activity_name">Name of the Activity:</label></strong>
+        {{with .Form.Errors.Get "activity_name"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="activity_name"
+          class="form-control form-control-lg {{with .Form.Errors.Get "activity_name"}} is-invalid {{ end }}"
+          id="activity_name"
+          name="activity_name"
+          placeholder="Activity Name"
+          value="{{$activity.ActivityName}}"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <strong><label for="activity_description"> Description:</label></strong>
+        {{with .Form.Errors.Get "activity_description"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="activity_description"
+          class="form-control form-control-lg {{with .Form.Errors.Get "activity_description"}} is-invalid {{ end }}"
+          id="activity_description"
+          name="activity_description"
+          placeholder="Activity Description"
+          value="{{$activity.ActivityDescription}}"
+        />
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <strong><label for="location">Location</label></strong>
+      {{with .Form.Errors.Get "location"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+      <input
+        type="location"
+        class="form-control form-control-lg {{with .Form.Errors.Get "location"}} is-invalid {{ end }}"
+        id="location"
+        name="location"
+        placeholder="Location"
+        value="{{$activity.Location}}"
+      />
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-md-4">
+        <strong><label for="activity_price">Price of the Activity:</label></strong>
+        {{with .Form.Errors.Get "activity_price"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="activity_price"
+          class="form-control form-control-lg {{with .Form.Errors.Get "activity_price"}} is-invalid {{ end }}"
+          id="activity_price"
+          name="activity_price"
+          placeholder="Price"
+          value="{{$activity.ActivityPrice}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="activity_duration">Duration Of Activity is (in minutes): </label></strong>
+        {{with .Form.Errors.Get "activity_duration"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="activity_duration"
+          class="form-control form-control-lg {{with .Form.Errors.Get "activity_duration"}} is-invalid {{ end }}"
+          id="activity_duration"
+          name="activity_duration"
+          placeholder="Duration"
+          value="{{$activity.ActivityDuration}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="max_size">Max Group size: </label></strong>
+        {{with .Form.Errors.Get "max_size"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="max_size"
+          class="form-control form-control-lg {{with .Form.Errors.Get "max_size"}} is-invalid {{ end }}"
+          id="max_size"
+          name="max_size"
+          placeholder="Max group size"
+          value="{{$activity.MaxGroupSize}}"
+        />
+      </div>
+    </div>
+    <div class="form-row mt-3">
+      <div class="form-group col-md-4">
+        <strong><label for="min_age">Age requirements:</label></strong>
+        {{with .Form.Errors.Get "min_age"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="min_age"
+          class="form-control form-control-lg {{with .Form.Errors.Get "min_age"}} is-invalid {{ end }}"
+          id="min_age"
+          name="min_age"
+          placeholder="Minimum age required"
+          value="{{$activity.AgeRestriction}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="phone_num">Phone Number:</label></strong>
+        {{with .Form.Errors.Get "phone_num"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="phone_num"
+          class="form-control form-control-lg {{with .Form.Errors.Get "phone_num"}} is-invalid {{ end }}"
+          id="phone_num"
+          name="phone_num"
+          placeholder="Phone Number: "
+          value="{{$activity.PhoneNumber}}"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="email">Email:</label></strong>
+        {{with .Form.Errors.Get "email"}}
+          <label class="text-danger">{{.}}</label>
+          {{ end }}
+        <input
+          type="email"
+          class="form-control form-control-lg {{with .Form.Errors.Get "email"}} is-invalid {{ end }}"
+          id="email"
+          name="email"
+          placeholder="Email Address"
+          value="{{$activity.Email}}"
+        />
+      </div>
+    </div>
+
+
+    <div class="container">
+        <div class="float-sm-left">
+            <div class="form-group mt-2">
+                <input type="submit" class="btn btn-success btn-lg" value="Save"></input>
+                <a href="#!" onclick="window.history.go(-1)" class="btn btn-warning btn-lg">Cancel</a>
+            </div>
+        </div>
+        <div class="float-sm-right">
+            <div class="form-group mt-2">
+                <a href="#!" onclick="deleteRes({{$user.ID}}, {{$activity.ActivityID}})" class="btn btn-danger btn-lg">Delete Activity</a>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+
+{{ end }}
+
+
+{{define "js"}}
+<script>
+    const deleteRes = (userID, id) => {
+    attention.custom({
+      icon: "warning",
+      msg: "Are you Sure?",
+      callback: (result) => {
+        if (result !== false) {
+          window.location.href = "/merchant/" + userID + "/add-activity/delete/" + id;
+        }
+      },
+    });
+  };
+</script>
+{{end}}

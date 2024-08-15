@@ -1,0 +1,1 @@
+drop_column("merchant_documents", "document_id")

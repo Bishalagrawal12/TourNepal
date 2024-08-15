@@ -1,0 +1,78 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+<div class="container">
+  <div class="row mt-2">
+    <h1>Write Review</h1>
+  </div>
+  <form action="" method="post" class="needs-validation" novalidate>
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <strong><label for="first_name">Enter First Name:</label></strong>
+          <input type="text" class="form-control" name="first_name" id="first_name" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <strong><label for="last_name">Enter Last Name:</label></strong>
+          <input type="text" class="form-control" name="last_name" id="last_name" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <strong><label for="email">Enter Email Address:</label></strong>
+          <input type="text" class="form-control" name="email" id="email" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <strong><label for="phone">Enter Phone Number:</label></strong>
+          <input type="text" class="form-control" name="phone" id="phone" />
+        </div>
+      </div>
+    </div>
+    <div class="row"></div>
+    <div class="form-group">
+      <strong><label for="cat">Enter Category ID:</label></strong>
+      <input type="text" class="form-control" name="cat" id="cat" />
+    </div>
+
+    <div class="form-group">
+      <strong><label for="item">Enter Item ID:</label></strong>
+      <input type="text" class="form-control" name="item" id="item" />
+    </div>
+
+    <div class="form-group">
+      <strong><label for="stars">Give Ratings:</label></strong>
+      <input type="text" class="form-control" name="stars" id="stars" />
+    </div>
+
+    <div class="form-group">
+      <strong><label for="review">Enter Your Review:</label></strong>
+      <textarea
+        type="text"
+        class="form-control"
+        name="review"
+        id="review"
+        rows="3"
+        value=""
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <hr />
+    </div>
+
+    <div class="fowm-group mt-3">
+      <input type="submit" class="btn btn-primary mt-2 btn-lg" />
+    </div>
+  </form>
+</div>
+
+{{ end }}

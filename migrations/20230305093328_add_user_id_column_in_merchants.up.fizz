@@ -1,0 +1,1 @@
+add_column("merchant_documents", "user_id", "integer", {})

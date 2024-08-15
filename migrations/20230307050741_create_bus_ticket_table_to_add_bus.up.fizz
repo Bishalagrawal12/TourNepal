@@ -1,0 +1,13 @@
+create_table("bus") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("bus_name", "string", {"default": ""})
+  t.Column("bus_source", "string", {"default": ""})
+  t.Column("bus_destination", "string", {})
+  t.Column("bus_model", "string", {})
+  t.Column("bus_no_plate", "string", {})
+  t.Column("num_seats", "integer", {})
+  t.Column("office_pan", "integer", {})
+  t.Column("office_address", "string", {})
+  t.Column("price", "integer", {})
+  t.Column("merchant_id", "integer", {})
+}

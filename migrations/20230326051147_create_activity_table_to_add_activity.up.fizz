@@ -1,0 +1,13 @@
+create_table("activity") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("activity_name", "string", {"default": ""})
+  t.Column("activity_description", "string", {"default": ""})
+  t.Column("location", "string", {})
+  t.Column("phone_num", "string", {})
+  t.Column("email", "string", {})
+  t.Column("activity_price", "integer", {})
+  t.Column("activity_duration", "integer", {})
+  t.Column("max_size", "integer", {})
+  t.Column("min_age", "integer", {})
+  t.Column("merchant_id", "integer", {})
+}

@@ -1,0 +1,1 @@
+drop_foreign_key("reviews", "reviews_merchant_categories_id_fk", {})

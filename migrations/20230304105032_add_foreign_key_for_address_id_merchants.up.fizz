@@ -1,0 +1,4 @@
+add_foreign_key("merchants", "address_id", {"merchant_address": ["id"]}, {
+    "on_delete": "cascade",
+    "on_update": "cascade",
+})

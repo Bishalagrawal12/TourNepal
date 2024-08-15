@@ -1,0 +1,316 @@
+{{template "merchant" .}}
+
+{{define "css"}}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+{{ end }}
+
+{{define "content"}}
+
+{{$user := index .Data "user_details"}}
+{{$p := index .StringMap "is_processed"}}
+
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-1"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      onclick="openCity(event, 'bus_reservation')"
+      >Bus Reservations</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-2"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      onclick="openCity(event, 'hotel_reservation')"
+      >Hotel Reservations</a
+    >
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <a
+      class="tablinks nav-link"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-3"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      onclick="openCity(event, 'activity_reservation')"
+      >Recreational Activity Reservations</a
+    >
+  </li>
+</ul>
+
+<div class="container">
+  <div id="bus_reservation" class="tabcontent">
+  <div class="row">
+    <h4>Bus Reservations:</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      {{$res := index .Data "reservations"}}
+      <table
+        id="example"
+        class="table table-hover cell-border"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th class="th-sm">LastName</th>
+            <th class="th-sm">Reservation Date</th>
+            <th class="th-sm">From</th>
+            <th class="th-sm">To</th>
+            <th class="th-sm">Bus Name</th>
+            <th class="th-sm">Phone Number</th>
+            <th class="th-sm">Passengers</th>
+            <th class="th-sm">Process</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $res}}
+          <tr>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}">{{.LastName}}</a></td>
+            <td>{{ humanDate .ReservationDate}}</td>
+            <td>{{.From}}</td>
+            <td>{{.Stop}}</td>
+            <td>{{.Bus.BusName}}</td>
+            <td>{{.PhoneNumber}}</td>
+            <td>{{.NumPassengers}}</td>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}/process" class="btn btn-success {{if eq $p "yes"}} disabled {{end}}" {{if eq $p "yes"}} aria-disabled="true" {{end}}>Process</a></td>
+          </tr>
+          {{end}}
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<div id="hotel_reservation" class="tabcontent">
+  <div class="row">
+    <h4>Hotel Room Reservations:</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      {{$hotelRes := index .Data "reservations_hotel"}}
+      <table
+        id="example_2"
+        class="table table-hover cell-border"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th class="th-sm">LastName</th>
+            <th class="th-sm">Reservation Date Start</th>
+            <th class="th-sm">Reservation Date End</th>
+            <th class="th-sm">Hotel Name</th>
+            <th class="th-sm">Hotel Room</th>
+            <th class="th-sm">Phone Number</th>
+            <th class="th-sm">Number of People</th>
+            <th class="th-sm">Process</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $hotelRes}}
+          <tr>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}/hotel">{{.LastName}}</a></td>
+            <td>{{ humanDate .ResDateStart}}</td>
+            <td>{{ humanDate .ResDateEnd}}</td>
+            <td>{{.Room.HotelName}}</td>
+            <td>{{.Room.HotelRoomName}}</td>
+            <td>{{.PhoneNumber}}</td>
+            <td>{{.NumPeople}}</td>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}/hotel/process" class="btn btn-success {{if eq $p "yes"}} disabled {{end}}" {{if eq $p "yes"}} aria-disabled="true" {{end}}>Process</a></td>
+          </tr>
+          {{end}}
+        </tfoot>
+      </table>
+      <hr>
+    </div>
+  </div>
+</div>
+
+
+<div id="activity_reservation" class="tabcontent">
+  <div class="row">
+    <h4>activity Reservations:</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      {{$activityRes := index .Data "reservations_activity"}}
+      <table
+        id="example_3"
+        class="table table-hover cell-border"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th class="th-sm">LastName</th>
+            <th class="th-sm">Reservation Date</th>
+            <th class="th-sm">Activity Name</th>
+            <th class="th-sm">Activity Location</th>
+            <th class="th-sm">Phone Number</th>
+            <th class="th-sm">Number of People</th>
+            <th class="th-sm">Process</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $activityRes}}
+          <tr>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}/activity">{{.LastName}}</a></td>
+            <td>{{ humanDate .ResDate}}</td>
+            <td>{{.Activity.ActivityName}}</td>
+            <td>{{.Activity.Location}}</td>
+            <td>{{.PhoneNumber}}</td>
+            <td>{{.NumPeople}}</td>
+            <td><a href="/merchant/{{$user.ID}}/merchant-show-reservations/{{.ReservationID}}/activity/process" class="btn btn-success {{if eq $p "yes"}} disabled {{end}}" {{if eq $p "yes"}} aria-disabled="true" {{end}}>Process</a></td>
+          </tr>
+          {{end}}
+        </tfoot>
+      </table>
+      <hr>
+    </div>
+  </div>
+</div>
+</div>
+
+{{ end }}
+
+{{define "js"}}
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  type="text/javascript"
+></script>
+<script src="/static/js/datatable.js" type="text/javascript"></script>
+<script
+  src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"
+  type="text/javascript"
+></script>
+<script>
+  $(document).ready(function () {
+    $("#example").DataTable();
+    $("#example_2").DataTable();
+    $("#example_3").DataTable();
+  });
+</script>
+
+
+<script>
+{{$active := index .StringMap "active"}}
+
+var i, tabcontent;
+tabcontent = document.getElementsByClassName("tabcontent");
+for (i = 0; i < tabcontent.length; i++) {
+  tabcontent[i].style.display = "none";
+}
+
+const urlParams = new URLSearchParams(location.search);
+console.log(urlParams);
+for (const [key, value] of urlParams) {
+    console.log(`${key}:${value}`);
+}
+
+if (urlParams.get('ac') === "hotel"){
+  document.getElementById("hotel_reservation").style.display = "block";
+  document.getElementById("ex1-tab-2").className += " active"
+}else if(urlParams.get('ac') === "activity") {
+  document.getElementById("activity_reservation").style.display = "block";
+  document.getElementById("ex1-tab-3").className += " active"
+}
+else{
+  document.getElementById("bus_reservation").style.display = "block";
+  document.getElementById("ex1-tab-1").className += " active"
+}
+
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+{{ end }}

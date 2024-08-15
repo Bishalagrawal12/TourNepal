@@ -1,0 +1,5 @@
+create_table("merchants") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("address_id", "integer", {})
+  t.Column("document_id", "integer", {})
+}

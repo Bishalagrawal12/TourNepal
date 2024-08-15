@@ -1,0 +1,322 @@
+{{define "merchant"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+
+    {{block "css" .}}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/notie/dist/notie.min.css"
+    />
+    <link rel="stylesheet" href="/static/merchant/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <style>
+      .notie-container {
+        z-index: 50000;
+      }
+
+      .userName {
+        position: relative;
+        margin-top: 3rem;
+        margin-left: 0px;
+      }
+
+      .title .userName {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--text-color);
+        transition: var(--tran-05);
+      }
+    </style>
+
+    {{
+      end
+    }}
+  </head>
+  <body>
+    {{$user := index .Data "user_details"}}
+
+    {{if gt $user.IsVerified 2}}
+
+    <nav>
+      <div class="logo-name">
+        <span class="logo_name">My Dashboard</span>
+      </div>
+
+      <div class="menu-items">
+        <ul class="nav-links">
+          <li>
+            <a href="/merchant/{{ $user.ID }}/dashboard">
+              <i class="uil uil-estate"></i>
+              <span class="link-name">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="uil uil-files-landscapes"></i>
+              <span class="link-name">Inventory</span>
+            </a>
+          </li>
+          <li>
+            <a href="/merchant/{{ $user.ID }}/merchant-add-items">
+              <i class="uil uil-plus"></i>
+              <span class="link-name">Manage Inventory</span>
+            </a>
+          </li>
+          <li>
+            <a href="/merchant/{{ $user.ID }}/reservation-calender">
+              <i class="uil uil-calender"></i>
+              <span class="link-name">Calender</span>
+            </a>
+          </li>
+          <li>
+            <a href="/merchant/{{ $user.ID }}/merchant-show-reservations">
+              <i class="uil uil-chart"></i>
+              <span class="link-name">Reservations</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/merchant/{{
+                $user.ID
+              }}/merchant-show-reservations-processed"
+            >
+              <i class="uil uil-check"></i>
+              <span class="link-name">Processed Reservations</span>
+            </a>
+          </li>
+          <li>
+            <a href="/merchant/{{ $user.ID }}/merchant-reviews">
+              <i class="uil uil-comments"></i>
+              <span class="link-name">Reviews</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="logout-mode">
+          <li>
+            <a href="/logout">
+              <i class="uil uil-signout"></i>
+              <span class="link-name">Logout</span>
+            </a>
+          </li>
+
+          <li class="mode">
+            <a href="#">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+
+            <div class="mode-toggle">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="dashboard">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <div class="search-box">
+          <i class="uil uil-search"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+        <!--<img src="images/profile.jpg" alt="">-->
+      </div>
+
+      <div class="dash-content">
+        <div class="title">
+          <span class="userName">Hello {{index .StringMap "user_name"}}</span>
+        </div>
+
+        {{block "content" .}}
+
+        {{ end }}
+      </div>
+    </section>
+
+    {{else}}
+
+    <nav>
+      <div class="logo-name">
+        <span class="logo_name">My Dashboard</span>
+      </div>
+
+      <div class="menu-items">
+        <ul class="nav-links">
+          <li>
+            <a href="/merchant/{{ $user.ID }}/verification">
+              <i class="uil uil-files-landscapes"></i>
+              <span class="link-name">Merchant Verification</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="logout-mode">
+          <li>
+            <a href="/logout">
+              <i class="uil uil-signout"></i>
+              <span class="link-name">Logout</span>
+            </a>
+          </li>
+
+          <li class="mode">
+            <a href="#">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+
+            <div class="mode-toggle">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="dashboard">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <div class="search-box">
+          <i class="uil uil-search"></i>
+          <input type="text" placeholder="Search here..." />
+        </div>
+        <!--<img src="images/profile.jpg" alt="">-->
+      </div>
+
+      <div class="dash-content">
+        <div class="title">
+          <span class="userName"
+            >Hello {{ $user.FirstName }} {{ $user.LastName }}</span
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        {{block "content" .}}
+
+        {{ end }}
+      </div>
+    </section>
+
+    {{ end }}
+
+    <script></script>
+
+    <script>
+      const body = document.querySelector("body"),
+        modeToggle = body.querySelector(".mode-toggle");
+      sidebar = body.querySelector("nav");
+      sidebarToggle = body.querySelector(".sidebar-toggle");
+
+      let getMode = localStorage.getItem("mode");
+      if (getMode && getMode === "dark") {
+        body.classList.toggle("dark");
+      }
+
+      let getStatus = localStorage.getItem("status");
+      if (getStatus && getStatus === "close") {
+        sidebar.classList.toggle("close");
+      }
+
+      modeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+          localStorage.setItem("mode", "dark");
+        } else {
+          localStorage.setItem("mode", "light");
+        }
+      });
+
+      sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+        if (sidebar.classList.contains("close")) {
+          localStorage.setItem("status", "close");
+        } else {
+          localStorage.setItem("status", "open");
+        }
+      });
+    </script>
+
+    <script src="/static/js/app.js"></script>
+    <script src="https://unpkg.com/notie"></script>
+    <script src="https://unpkg.com/notie"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+    {{block "js" .}}
+
+    {{ end }}
+
+    <script>
+      let attention = Prompt();
+
+      (function () {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll("needs-validation");
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+
+      function notify(msg, alertType) {
+        notie.alert({
+          type: alertType,
+          text: msg,
+        });
+      }
+
+
+      function notifyModal(title, text, icon, button) {
+        Swal.fire({
+          title: title,
+          text: text,
+          icon: icon,
+          button: button,
+        });
+      }
+
+      {{with .Error}}
+        notify("{{.}}", "error");
+      {{end}}
+
+      {{with .Flash}}
+        notify("{{.}}", "success")
+      {{end}}
+
+      {{with .Warning}}
+        notify("{{.}}", "warning")
+      {{end}}
+    </script>
+  </body>
+</html>
+
+{{ end }}
